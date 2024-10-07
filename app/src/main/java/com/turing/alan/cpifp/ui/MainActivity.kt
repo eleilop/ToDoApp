@@ -2,6 +2,7 @@ package com.turing.alan.cpifp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -34,13 +35,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         val recyclerView = binding.tasksList
-        recyclerView.adapter = TaskListAdapter()
+        recyclerView.adapter = TaskListAdapter(::toDetail)
 
         (recyclerView.adapter as TaskListAdapter).submitList(repository.readAll())
         binding.createTaskFab.setOnClickListener {
             val toCreateTaskIntent = Intent(this,CreateTaskActivity::class.java)
             startActivity(toCreateTaskIntent)
         }
+
+    }
+
+    private fun toDetail(task:Task) {
+        val intent = Intent(this,TaskDetailActivity::class.java)
+        intent.putExtra("TASK_ID",task.id)
+        startActivity(intent)
 
     }
 }

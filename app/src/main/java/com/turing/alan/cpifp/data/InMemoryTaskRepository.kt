@@ -40,7 +40,7 @@ class InMemoryTaskRepository private constructor():TaskRepository {
     }
 
     override fun readOne(id: Int): Task {
-        TODO("Not yet implemented")
+        return _tasks.single { it.id == id }
     }
 
     override fun readAll() = _tasks.toList()
