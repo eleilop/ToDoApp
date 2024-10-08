@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val recyclerView = binding.tasksList
-        recyclerView.adapter = TaskListAdapter(::toDetail)
+        recyclerView.adapter = TaskListAdapter(::toDetail,::shareTask)
 
         (recyclerView.adapter as TaskListAdapter).submitList(repository.readAll())
         binding.createTaskFab.setOnClickListener {
@@ -50,5 +50,13 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("TASK_ID",task.id)
         startActivity(intent)
 
+    }
+
+    private fun shareTask(task:Task) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType("text/plain")
+        intent.putExtra(Intent.EXTRA_TEXT,"La tarea ${task.title} - ${task.body} se te ha asignado")
+        val chooser = Intent.createChooser(intent,"")
+        startActivity(chooser)
     }
 }

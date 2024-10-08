@@ -28,14 +28,14 @@ class CreateTaskActivity : AppCompatActivity() {
         binding.saveTaskButton.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val body = binding.bodyInput.text.toString()
-            val newTask = Task(
+            /**val newTask = Task(
                 id = 0,
                 title = title,
                 body = body,
                 completed = false,
                 createdAt = Instant.now()
-            )
-            taskRepository.create(newTask)
+            )*/
+            taskRepository.create(title, body)
             finish()
         }
     }

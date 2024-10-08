@@ -19,12 +19,12 @@ class InMemoryTaskRepository private constructor():TaskRepository {
 
 
 
-    override fun create(task: Task): Task {
+    override fun create(title:String,body:String): Task {
         val id = if (_tasks.size==0) 1 else _tasks.last().id+1
         val newTask = Task(id,
-            task.title,
-            task.body,
-            task.completed,
+            title,
+            body,
+            false,
             Instant.now(),
             )
         _tasks.add(newTask)

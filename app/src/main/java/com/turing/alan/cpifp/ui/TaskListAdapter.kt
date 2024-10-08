@@ -10,13 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.turing.alan.cpifp.data.Task
 import com.turing.alan.cpifp.databinding.TaskListItemBinding
 
-class TaskListAdapter(private val toItemDetail:((Task)->Unit)): ListAdapter<Task, TaskListAdapter.TaskViewHolder>(TaskDiffCallback) {
+class TaskListAdapter(private val toItemDetail:((Task)->Unit),
+                      private val shareTask:((Task)->Unit)): ListAdapter<Task, TaskListAdapter.TaskViewHolder>(TaskDiffCallback) {
 
     inner class TaskViewHolder(private val binding: TaskListItemBinding) :RecyclerView.ViewHolder(binding.root) {
 
-        init {
-
-        }
         fun bind(task:Task) {
             binding.taskTitle.text = task.title
             binding.taskBody.text = task.body
@@ -24,6 +22,7 @@ class TaskListAdapter(private val toItemDetail:((Task)->Unit)): ListAdapter<Task
             binding.root.setOnClickListener  {
                 toItemDetail(task)
             }
+            binding.shareTask.setOnClickListener { shareTask(task) }
         }
 
     }
