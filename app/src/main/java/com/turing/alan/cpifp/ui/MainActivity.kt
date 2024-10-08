@@ -16,13 +16,13 @@ import java.time.Instant
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val repository:TaskRepository = InMemoryTaskRepository.getInstance()
+/**    private val repository:TaskRepository = InMemoryTaskRepository.getInstance()
 
     override fun onResume() {
         super.onResume()
         val recyclerView = binding.tasksList
         (recyclerView.adapter as TaskListAdapter).submitList(repository.readAll())
-    }
+    }*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+/**
         val recyclerView = binding.tasksList
         recyclerView.adapter = TaskListAdapter(::toDetail,::shareTask)
 
@@ -41,9 +41,10 @@ class MainActivity : AppCompatActivity() {
         binding.createTaskFab.setOnClickListener {
             val toCreateTaskIntent = Intent(this,CreateTaskActivity::class.java)
             startActivity(toCreateTaskIntent)
-        }
+        }*/
 
     }
+    /**
 
     private fun toDetail(task:Task) {
         val intent = Intent(this,TaskDetailActivity::class.java)
@@ -58,5 +59,5 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(Intent.EXTRA_TEXT,"La tarea ${task.title} - ${task.body} se te ha asignado")
         val chooser = Intent.createChooser(intent,"")
         startActivity(chooser)
-    }
+    }*/
 }

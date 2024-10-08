@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main.xml"
+    app:startDestination="@id/taskListFragment">
+
+    <fragment
+        android:id="@+id/taskListFragment"
+        android:name="com.turing.alan.cpifp.ui.TaskListFragment"
+        android:label="TaskListFragment" >
+        <action
+            android:id="@+id/action_taskListFragment_to_taskCreateFragment"
+            app:destination="@id/taskCreateFragment" />
+        <action
+            android:id="@+id/action_taskListFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskCreateFragment"
+        android:name="com.turing.alan.cpifp.ui.TaskCreateFragment"
+        android:label="TaskCreateFragment" />
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.turing.alan.cpifp.ui.TaskDetailFragment"
+        android:label="fragment_task_detail"
+        tools:layout="@layout/fragment_task_detail" >
+        <argument
+            android:name="taskId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
