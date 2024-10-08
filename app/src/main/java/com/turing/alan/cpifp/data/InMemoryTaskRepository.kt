@@ -1,26 +1,18 @@
 package com.turing.alan.cpifp.data
 
 import java.time.Instant
+import java.util.UUID
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class InMemoryTaskRepository private constructor():TaskRepository {
+@Singleton
+class InMemoryTaskRepository @Inject constructor():TaskRepository {
 
-    companion object {
-        private var instance: InMemoryTaskRepository? = null
-        fun getInstance():InMemoryTaskRepository {
-
-            if (instance == null) {
-                instance = InMemoryTaskRepository()
-            }
-            return instance!!
-
-        }
-    }
     private val _tasks = mutableListOf<Task>()
 
-
-
     override fun create(title:String,body:String): Task {
-        val id = if (_tasks.size==0) 1 else _tasks.last().id+1
+//        val id = if (_tasks.size==0) 1 else _tasks.last().id+1
+        val id = UUID.randomUUID().toString()
         val newTask = Task(id,
             title,
             body,
@@ -35,11 +27,11 @@ class InMemoryTaskRepository private constructor():TaskRepository {
         TODO("Not yet implemented")
     }
 
-    override fun delete(id: Int) {
+    override fun delete(id: String) {
         TODO("Not yet implemented")
     }
 
-    override fun readOne(id: Int): Task {
+    override fun readOne(id: String): Task {
         return _tasks.single { it.id == id }
     }
 

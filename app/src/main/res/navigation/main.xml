@@ -27,6 +27,6 @@
         tools:layout="@layout/fragment_task_detail" >
         <argument
             android:name="taskId"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
 </navigation>

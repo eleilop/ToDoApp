@@ -3,7 +3,7 @@ package com.turing.alan.cpifp.data
 import java.time.Instant
 
 data class Task(
-    val id: Int,
+    val id: String,
     var title: String,
     var body: String,
     var completed: Boolean,

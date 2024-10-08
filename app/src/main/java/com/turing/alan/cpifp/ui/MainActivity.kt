@@ -12,17 +12,12 @@ import com.turing.alan.cpifp.data.InMemoryTaskRepository
 import com.turing.alan.cpifp.data.Task
 import com.turing.alan.cpifp.data.TaskRepository
 import com.turing.alan.cpifp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.Instant
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-/**    private val repository:TaskRepository = InMemoryTaskRepository.getInstance()
 
-    override fun onResume() {
-        super.onResume()
-        val recyclerView = binding.tasksList
-        (recyclerView.adapter as TaskListAdapter).submitList(repository.readAll())
-    }*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,31 +28,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-/**
-        val recyclerView = binding.tasksList
-        recyclerView.adapter = TaskListAdapter(::toDetail,::shareTask)
-
-        (recyclerView.adapter as TaskListAdapter).submitList(repository.readAll())
-        binding.createTaskFab.setOnClickListener {
-            val toCreateTaskIntent = Intent(this,CreateTaskActivity::class.java)
-            startActivity(toCreateTaskIntent)
-        }*/
-
-    }
-    /**
-
-    private fun toDetail(task:Task) {
-        val intent = Intent(this,TaskDetailActivity::class.java)
-        intent.putExtra("TASK_ID",task.id)
-        startActivity(intent)
-
     }
 
-    private fun shareTask(task:Task) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/plain")
-        intent.putExtra(Intent.EXTRA_TEXT,"La tarea ${task.title} - ${task.body} se te ha asignado")
-        val chooser = Intent.createChooser(intent,"")
-        startActivity(chooser)
-    }*/
 }

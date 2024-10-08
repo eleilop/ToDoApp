@@ -12,18 +12,20 @@ import com.turing.alan.cpifp.data.InMemoryTaskRepository
 import com.turing.alan.cpifp.data.Task
 import com.turing.alan.cpifp.data.TaskRepository
 import com.turing.alan.cpifp.databinding.FragmentTaskListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class TaskListFragment : Fragment() {
 
-    private val repository:TaskRepository = InMemoryTaskRepository.getInstance()
+    @Inject
+    lateinit var repository:TaskRepository
     private lateinit var binding: FragmentTaskListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_task_list, container, false)
+
         binding = FragmentTaskListBinding.inflate(
             inflater,
             container,

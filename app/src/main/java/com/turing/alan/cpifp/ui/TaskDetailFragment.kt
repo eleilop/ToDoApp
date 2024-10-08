@@ -10,10 +10,12 @@ import com.turing.alan.cpifp.R
 import com.turing.alan.cpifp.data.InMemoryTaskRepository
 import com.turing.alan.cpifp.data.TaskRepository
 import com.turing.alan.cpifp.databinding.FragmentTaskDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
-class TaskDetailFragment : Fragment() {
-    private val repository: TaskRepository = InMemoryTaskRepository.getInstance()
+@AndroidEntryPoint
+class TaskDetailFragment: Fragment() {
+    @Inject lateinit var repository: TaskRepository
     private val args:TaskDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentTaskDetailBinding
     override fun onCreateView(

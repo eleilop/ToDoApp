@@ -10,14 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".ToDoApplication"
         android:theme="@style/Theme.ToDoAp"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.TaskDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.CreateTaskActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
