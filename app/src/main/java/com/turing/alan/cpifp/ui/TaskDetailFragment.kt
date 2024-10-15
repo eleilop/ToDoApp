@@ -35,8 +35,8 @@ class TaskDetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val taskId = args.taskId
-        val task = repository.readOne(taskId)
-        binding.taskBody.text = task.body
+        //val task = repository.readOne(taskId)
+        //binding.taskBody.text = task.body
 
 
     }

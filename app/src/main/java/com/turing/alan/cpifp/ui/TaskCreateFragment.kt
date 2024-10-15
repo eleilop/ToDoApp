@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.turing.alan.cpifp.R
 import com.turing.alan.cpifp.data.InMemoryTaskRepository
@@ -12,6 +13,9 @@ import com.turing.alan.cpifp.data.Task
 import com.turing.alan.cpifp.data.TaskRepository
 import com.turing.alan.cpifp.databinding.FragmentTaskCreateBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 @AndroidEntryPoint
 class TaskCreateFragment : Fragment() {
@@ -34,7 +38,11 @@ class TaskCreateFragment : Fragment() {
         binding.saveTaskButton.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val body = binding.bodyInput.text.toString()
-            repository.create(title, body)
+            viewLifecycleOwner.lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    repository.create(title, body)
+                }
+            }
             findNavController().popBackStack()
 
         }
