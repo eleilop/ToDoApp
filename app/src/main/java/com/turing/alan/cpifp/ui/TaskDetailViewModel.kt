@@ -12,28 +12,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TaskListViewModel @Inject constructor (
+class TaskDetailViewModel @Inject constructor (
     private val repository: TaskRepository
 ): ViewModel() {
-    private val _uiState = MutableStateFlow<TaskListUiState>(TaskListUiState.Loading)
-    val uiState: StateFlow<TaskListUiState>
+    private val _uiState = MutableStateFlow<TaskDetailUiState>(TaskDetailUiState.Loading)
+    val uiState: StateFlow<TaskDetailUiState>
         get() = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             repository.getStream().collect {
-                tasks ->
-                if (tasks.isEmpty())
-                    _uiState.value = TaskListUiState.Loading
-                else
-                    _uiState.value = TaskListUiState.Success(tasks)
+            tasks ->
+            if (tasks.isEmpty())
+                _uiState.value = TaskDetailUiState.Loading
             }
         }
     }
 }
 
-sealed class TaskListUiState {
-    data object Loading:TaskListUiState()
-    class Success(val tasks:List<Task>):TaskListUiState()
-    class Error(val message:String):TaskListUiState()
+sealed class TaskDetailUiState {
+    data object Loading:TaskDetailUiState()
+    class Success(val task:Task):TaskDetailUiState()
 }

@@ -5,22 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.turing.alan.cpifp.R
-import com.turing.alan.cpifp.data.InMemoryTaskRepository
-import com.turing.alan.cpifp.data.Task
-import com.turing.alan.cpifp.data.TaskRepository
 import com.turing.alan.cpifp.databinding.FragmentTaskCreateBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
+
 @AndroidEntryPoint
 class TaskCreateFragment : Fragment() {
     private lateinit var binding: FragmentTaskCreateBinding
-    @Inject lateinit var repository: TaskRepository
+    private val viewModel:TaskCreateViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,18 +35,27 @@ class TaskCreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect {
+                    uiState ->
+                    when(uiState) {
+                        is TaskCreateUiState.Success -> {}
+                    }
+                }
+            }
+        }
+
         binding.saveTaskButton.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val body = binding.bodyInput.text.toString()
             viewLifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    repository.create(title, body)
+                    viewModel.create(title, body)
                 }
             }
             findNavController().popBackStack()
-
         }
     }
-
-
 }

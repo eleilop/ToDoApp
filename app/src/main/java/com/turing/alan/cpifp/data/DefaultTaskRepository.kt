@@ -48,7 +48,8 @@ class DefaultTaskRepository @Inject constructor(
     }
 
     override suspend fun readOne(id: String): Task {
-        TODO("Not yet implemented")
+        refreshTask()
+        return localTaskDataSource.readOne(id).toExternal()
     }
 
     override suspend fun readAll(): List<Task> {

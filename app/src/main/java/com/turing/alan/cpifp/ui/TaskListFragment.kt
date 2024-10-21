@@ -23,17 +23,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TaskListFragment : Fragment() {
-
     private val viewModel:TaskListViewModel by viewModels()
-
-    @Inject
-    lateinit var repository:TaskRepository
     private lateinit var binding: FragmentTaskListBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentTaskListBinding.inflate(
             inflater,
             container,
@@ -44,26 +40,23 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val adapter = TaskListAdapter(::toItemDetail,::shareTask)
         val rv = binding.tasksList
         rv.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launch {
-
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 viewModel.uiState.collect {
                     uiState ->
-                        when(uiState) {
-                            is TaskListUiState.Error -> TODO()
-                            TaskListUiState.Loading -> {}
-                            is TaskListUiState.Success -> {
-                                (rv.adapter as TaskListAdapter).submitList(uiState.tasks)
-                            }
+                    when(uiState) {
+                        is TaskListUiState.Error -> {}
+                        TaskListUiState.Loading -> {}
+                        is TaskListUiState.Success -> {
+                            (rv.adapter as TaskListAdapter).submitList(uiState.tasks)
                         }
+                    }
                 }
             }
-
         }
 
         binding.createTaskFab.setOnClickListener {
@@ -93,5 +86,4 @@ class TaskListFragment : Fragment() {
         val chooser = Intent.createChooser(intent, "")
         startActivity(chooser)
     }
-
 }
